@@ -22,6 +22,7 @@
 
 #Load appropriate libraries
 # ------------TO COMPLETE-------------
+library(dplyr)
 
 #PART 1: load test and train data sets and append them together
 
@@ -45,7 +46,7 @@ featureDat[7353:7354,1:5]     #...this.
 # Assumptions - include all mean(), std() and meanFreq(), but not angle() measures
 
 # Load in the features data set
-#Testing.....
+# Need to set the working directory to where the features.txt file is held
 testDat<-read.table("features.txt", header = FALSE, sep="")
 #Identify target mean, std and meanFreq measures
 testDat<-mutate(testDat,targets = grepl("mean|std",testDat[,2]))
@@ -64,5 +65,22 @@ str(featureTarget)
 tail(testDat,10)   #Compare with the output of str(featureTarget)
 tail(testDat,10)  #Compare with the output of str(featureTarget)
 
-
+#PART3 - use descriptive activity names to name the variables
+names(featureTarget)<-c("tBodyAccMeanX","tBodyAccMeanY","tBodyAccMeanZ","tBodyAccStdX","tBodyAccStdY","tBodyAccStdZ",
+                        "tBodyGravMeanX","tBodyGravMeanY","tBodyGravMeanZ","tBodyGravStdX","tBodyGravStdY","tBodyGravStdZ",
+                        "tBodyAccJerkMeanX","tBodyAccJerkMeanY","tBodyAccJerkMeanZ","tBodyAccJerkStdX","tBodyAccJerkStdY","tBodyAccJerkStdZ",
+                        "tBodyGyroMeanX","tBodyGyroMeanY","tBodyGyroMeanZ","tBodyGyroStdX","tBodyGyroStdY","tBodyGyroStdZ",
+                        "tBodyGyroJerkMeanX","tBodyGyroJerkMeanY","tBodyGyroJerkMeanZ","tBodyGyroJerkStdX","tBodyGyroJerkStdY","tBodyGyroJerkStdZ",
+                        "tBodyAccMagMean","tBodyAccMagStd","tGravAccMagMean","tGravAccMagStd","tBodyAccJerkMagMean","tBodyAccJerkMagStd",
+                        "tBodyGyroMagMean","tBodyGyroMagStd","tBodyGyroJerkMagMean","tBodyGyroJerkMagStd",
+                        "fBodyAccMeanX","fBodyAccMeanY","fBodyAccMeanZ","fBodyAccStdX","fBodyAccStdY","fBodyAccStdZ",
+                        "fBodyAccMeanFreqX","fBodyAccMeanFreqY","fBodyAccMeanFreqZ",
+                        "fBodyAccJerkMeanX","fBodyAccJerkMeanY","fBodyAccJerkMeanZ","fBodyAccJerkStdX","fBodyAccJerkStdY","fBodyAccJerkStdZ",
+                        "fBodyAccJerkMeanFreqX","fBodyAccJerkMeanFreqY","fBodyAccJerkMeanFreqZ",
+                        "fBodyGyroMeanX","fBodyGyroMeanY","fBodyGyroMeanZ","fBodyGyroStdX","fBodyGyroStdY","fBodyGyroStdZ",
+                        "fBodyGyroMeanFreqX","fBodyGyroMeanFreqY","fBodyGyroMeanFreqZ",
+                        "fBodyAccMagMean","fBodyAccMagStd","fBodyAccMagMeanFreq",
+                        "fBodyAccJerkMagMean","fBodyAccJerkMagStd","fBodyAccJerkMagMeanFreq",
+                        "fBodyGyroMagMean","fBodyGyroMagStd","fBodyGyroMagMeanFreq",
+                        "fBodyGyroJerkMagMean","fBodyGyroJerkMagStd","fBodyGyroJerkMagMeanFreq")
 
