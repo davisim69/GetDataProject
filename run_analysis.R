@@ -153,6 +153,6 @@ names(featureTarget2)<-c("Subject","Activity","tBodyAccMeanX","tBodyAccMeanY","t
                         "fBodyGyroMagMean","fBodyGyroMagStd","fBodyGyroMagMeanFreq",
                         "fBodyGyroJerkMagMean","fBodyGyroJerkMagStd","fBodyGyroJerkMagMeanFreq")
 
-#PART 4: Get the activity names into the data set 
-
-#Accomplished this above
+#PART 5: Calculate means of each feature measure by subject and activity 
+finalDat<- featureTarget2 %>% group_by(Subject,Activity) #Group by Subject and activity
+finalDat2 <- finalDat %>% summarise_each(funs(mean))   #Calcualte means by Subject and activity and store
