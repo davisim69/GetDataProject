@@ -25,14 +25,37 @@
 library(dplyr)
 
 #PART 1: load test and train data sets and append them together
+# Also load in the test and train activity data sets for later
+# Also load in the test and train subject data sets for later
 
 #Read in the X_test data - (make sure your setwd() is pointing to the directory your test data is in)
 testData<-read.table(paste(getwd(),"/","X_test.txt",sep = ""), header=FALSE, sep="")
 str(testData)  #Check what you have - should be 2947 * 561
 
-#Read in the X_train data - (make sure your setwd() is pointing to the directory your test data is in)
+#Read in the y_test data
+testAct<-read.table(paste(getwd(),"/","y_test.txt",sep = ""), header=FALSE, sep="")
+names(testAct)<-c("Activity")
+str(testAct)  #Check what you have - should be 2947 * 1
+
+#Read in the subject_test data set
+testSub<-read.table(paste(getwd(),"/","subject_test.txt",sep = ""), header=FALSE, sep="")
+names(testSub)<-c("Subject")
+str(testSub)  #Check what you have - should be 2947 * 1
+
+
+#Read in the X_train data - (make sure your setwd() is pointing to the directory your train data is in)
 trainData<-read.table(paste(getwd(),"/","X_train.txt",sep = ""), header=FALSE, sep="")
 str(trainData)  #Check what you have - should be 7352 * 561
+
+#Read in the y_train data - (make sure your setwd() is pointing to the directory your train data is in)
+trainAct<-read.table(paste(getwd(),"/","y_train.txt",sep = ""), header=FALSE, sep="")
+names(trainAct)<-c("Activity")
+str(trainAct)  #Check what you have - should be 7352 * 1
+
+#Read in the subject_test data set
+trainSub<-read.table(paste(getwd(),"/","subject_train.txt",sep = ""), header=FALSE, sep="")
+names(trainSub)<-c("Subject")
+str(trainSub)  #Check what you have - should be 7352 * 1
 
 #Merge the two data sets together - append one on the end of other to give 10,299 * 561
 featureDat<-rbind(trainData,testData)
@@ -57,16 +80,62 @@ View(testDat)   #79 measures
 #Select the first column which holds the number corresponding to that variable in the featureDat data set
 testDat<-select(testDat,V1)
 testDat<-as.integer(testDat$V1)
-#Use testDat to select columns in featureDat
+#Use testDat to select columns in featureDat 
 featureTarget<-select(featureDat,testDat)
+
 #Check the new data set has only 79 variables
 str(featureTarget)
-#Check that the new data set has the correct 79 variables
+#Check that the new data set has the correct 79 features measurement variables
 tail(testDat,10)   #Compare with the output of str(featureTarget)
-tail(testDat,10)  #Compare with the output of str(featureTarget)
+head(testDat,10)  #Compare with the output of str(featureTarget)
 
-#PART3 - use descriptive activity names to name the variables
-names(featureTarget)<-c("tBodyAccMeanX","tBodyAccMeanY","tBodyAccMeanZ","tBodyAccStdX","tBodyAccStdY","tBodyAccStdZ",
+#PART3 - get the activities variable onto the data set and give the activities meaningful names
+#Also get the subjects onto the features data set...
+
+
+#First, row bind the test and train activities data sets together
+actDat<-rbind(trainAct,testAct)
+str(actDat)
+
+#Second, row bind the test and train subject data sets together
+subDat<-rbind(trainSub,testSub)
+str(subDat)
+
+#Column bind the activity and subject data set with the features measurement data set - activities first
+featureTarget2<-cbind(subDat,actDat,featureTarget)    # 10299 * 81
+
+#Now get meaningful activity names 
+
+#Function to take the activity column and turn it into characters
+# Adapted this from here: https://stat.ethz.ch/pipermail/r-help/2006-July/108829.html
+
+gsr <- function(Source, Search, Replace)
+{
+  if (length(Search) != length(Replace))
+    stop("Search and Replace Must Have Equal Number of Items\n")
+  
+  Changed <- as.character(Source)
+  
+  for (i in 1:length(Search))
+  {
+    Changed <- replace(Changed, Changed == Search[i], Replace[i])
+  }
+  
+  Changed
+}
+
+#Change the activity variable to a character variable with descriptive names
+featureTarget2$Activity<-gsr(featureTarget2$Activity,
+                             c("1","2","3","4","5","6"),
+                             c("Walking","WalkingUp","WalkingDown","Sitting","Standing","Laying"))
+
+#check what you have - should be 10299 * 81
+str(featureTarget2)
+head(featureTarget2[,1:5],50)  #Compare this with the first 50 entries in actDat
+head(actDat,50)
+
+#PART4 - use descriptive activity names to name the variables
+names(featureTarget2)<-c("Subject","Activity","tBodyAccMeanX","tBodyAccMeanY","tBodyAccMeanZ","tBodyAccStdX","tBodyAccStdY","tBodyAccStdZ",
                         "tBodyGravMeanX","tBodyGravMeanY","tBodyGravMeanZ","tBodyGravStdX","tBodyGravStdY","tBodyGravStdZ",
                         "tBodyAccJerkMeanX","tBodyAccJerkMeanY","tBodyAccJerkMeanZ","tBodyAccJerkStdX","tBodyAccJerkStdY","tBodyAccJerkStdZ",
                         "tBodyGyroMeanX","tBodyGyroMeanY","tBodyGyroMeanZ","tBodyGyroStdX","tBodyGyroStdY","tBodyGyroStdZ",
@@ -84,3 +153,6 @@ names(featureTarget)<-c("tBodyAccMeanX","tBodyAccMeanY","tBodyAccMeanZ","tBodyAc
                         "fBodyGyroMagMean","fBodyGyroMagStd","fBodyGyroMagMeanFreq",
                         "fBodyGyroJerkMagMean","fBodyGyroJerkMagStd","fBodyGyroJerkMagMeanFreq")
 
+#PART 4: Get the activity names into the data set 
+
+#Accomplished this above
