@@ -136,7 +136,7 @@ head(actDat,50)
 
 #PART4 - use descriptive activity names to name the variables
 names(featureTarget2)<-c("Subject","Activity","tBodyAccMeanX","tBodyAccMeanY","tBodyAccMeanZ","tBodyAccStdX","tBodyAccStdY","tBodyAccStdZ",
-                        "tBodyGravMeanX","tBodyGravMeanY","tBodyGravMeanZ","tBodyGravStdX","tBodyGravStdY","tBodyGravStdZ",
+                        "tGravAccMeanX","tGravAccMeanY","tGravAccMeanZ","tGravAccStdX","tGravAccStdY","tGravAccStdZ",
                         "tBodyAccJerkMeanX","tBodyAccJerkMeanY","tBodyAccJerkMeanZ","tBodyAccJerkStdX","tBodyAccJerkStdY","tBodyAccJerkStdZ",
                         "tBodyGyroMeanX","tBodyGyroMeanY","tBodyGyroMeanZ","tBodyGyroStdX","tBodyGyroStdY","tBodyGyroStdZ",
                         "tBodyGyroJerkMeanX","tBodyGyroJerkMeanY","tBodyGyroJerkMeanZ","tBodyGyroJerkStdX","tBodyGyroJerkStdY","tBodyGyroJerkStdZ",
