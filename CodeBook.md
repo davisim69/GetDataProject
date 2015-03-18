@@ -38,11 +38,11 @@ The following data manipulations were required to achieve this goal:
 
 Brief description of final tidy data set
 ----------------------------------------
-Name of Data set: resultMeans.txt
-Dimensions of data set: 180 observations (rows) by 81 variables (columns)
-Observations: one record per subject per activity
-Variables: Two variables listing the subjects and activities plus 79 variables of mean / standard deviation measurements. See below for variable descriptions.
-Interpretation: Each cell in the data set represents the mean of the variable for the specific combination of subject and activity.
+- Name of Data set: resultMeans.txt  
+- Dimensions of data set: 180 observations (rows) by 81 variables (columns)  
+- Observations: one record per subject per activity  
+- Variables: Two variables listing the subjects and activities plus 79 variables of mean / standard deviation measurements. See below for variable descriptions.  
+- Interpretation: Each cell in the data set represents the mean of the variable for the specific combination of subject and activity.  
 
 Variable list
 -------------
