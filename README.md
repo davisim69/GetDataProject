@@ -24,7 +24,7 @@ The script is divided into parts that broadly mirror the steps outlined in the p
 
 * dplyr
 
-**Part One **  
+**Part One**  
 Aim: Merge the test and train measurement data sets together  
 
 Inputs:  
@@ -50,7 +50,7 @@ Outputs:
 * testSub: data frame containing the subject for each record in the test data (dimensions - 2,947 * 1)
 * trainSub: data frame containing the subject for each record in the train data (dimensions - 7,352 * 1)
 
-**Part Two **  
+**Part Two**  
 Aim: Select out the measurements of interest - mean and standard deviation measurements
 
 Inputs:      
